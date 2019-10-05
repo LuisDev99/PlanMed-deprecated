@@ -7,7 +7,7 @@ import { Provider as ReduxProvider } from "react-redux";
 import { Route, BrowserRouter as Router, Switch } from "react-router-dom";
 import configureStore from "./store";
 
-//DONE ?
+//DONE ? Yes
 
 const reduxStore = configureStore(window.REDUX_INITIAL_DATA);
 
