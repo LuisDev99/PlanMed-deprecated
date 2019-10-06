@@ -1,5 +1,4 @@
 //TODO: implement login actions (Just Login) - Almost done, just missing to connect to the real API endpoint (by changing the variable 'backendURL')
-//TODO: implement logOut
 
 import axios from 'axios';
 
@@ -24,14 +23,29 @@ function loginUser(userAuthentications) {
         axios.get(backendURL)
             .then(user => {
 
-                /* If the credentials of the user are correct, notify the reducer that the login was successful
-                   by calling the action 'onLoginSuccess' */
+                /* 
+                    If the credentials of the user are correct, notify the reducer that the login was successful
+                    by calling the action 'onLoginSuccess' 
+                */
+
                 dispatch(onLoginSuccess(user.data));
+
+                //Redirect the user to its corresponding page based on his role
+                if (user.data.id === 1) //TODO: This should verify user.data.ROLE instead of data.id
+                    window.location = '/DoctorPage';
+                else if (user.data.id === 2)
+                    window.location = '/HospitalPage';
+                else
+                    window.location = '/';
+
             })
             .catch(error => {
 
-                /*If the credentials of the user are NOT correct, notify the reducer that the login failed
-                  by calling the action 'onLoginFailed' */
+                /*
+                    If the credentials of the user are NOT correct, notify the reducer that the login failed
+                    by calling the action 'onLoginFailed' 
+                */
+
                 dispatch(onLoginFailed(error));
             });
     };
@@ -39,7 +53,7 @@ function loginUser(userAuthentications) {
 }
 
 /**
- * Function gets call whenever the user wants to log out (Its the only way to close session)
+ * This function will call the reducer and logout the user, and redirect the user to the login page
  * It will dispacth the logOut function
  */
 function logoutUser() {

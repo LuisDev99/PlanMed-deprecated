@@ -10,7 +10,7 @@
  * When a function (that involves data) is called and starts retrieving data from an API, the BEGIN action fires up, a loading flag is set to true (this can be used to let know the user visually that the data is being loaded)
  * If the API returned an error, the FAILED action fires up, returning the error and sets the loading flag to false
  * If no error occured, the SUCCESS action fires up and sets the loading flag to false
- * Please follow this pattern in every Component that needs Redux
+ * Please follow this pattern in every Component that needs Redux that involves calls to the API
  */
 
 /**
@@ -19,16 +19,17 @@
 * - Code Example followed in this project: https://codesandbox.io/s/j3378m4v3y
 * - Project example of redux with thunk: https://github.com/johnazre/youtube-intro-to-redux
 * - Axios explanation: https://alligator.io/react/axios-react/
+* - Login system management this project followed: https://github.com/cornflourblue/react-redux-registration-login-example
 */
 
 import { combineReducers } from 'redux';
-import loginReducer from './login_reducer';
+import authenticationReducer from './authentication_reducer';
 
 //TODO: import all three reducers (login, hospital, doctor)
 
 const rootReducer = combineReducers({
     //TODO: add here the imported reducers
-    loginReducer
+    authenticationReducer
 });
 
 export default rootReducer;

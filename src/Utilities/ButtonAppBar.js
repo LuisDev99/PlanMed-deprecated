@@ -4,7 +4,7 @@ import Toolbar from '@material-ui/core/Toolbar';
 import { withStyles } from '@material-ui/core/styles';
 import Typography from '@material-ui/core/Typography';
 import Button from '@material-ui/core/Button';
-import Login_Action from '../../Actions/login_actions';
+import Auth_Action from '../Actions/authentication_actions';
 import { connect } from "react-redux";
 
 /**
@@ -61,7 +61,7 @@ const mapStateToProps = (state) => {
 
 //Redux configuration stuff
 const mapDispatchToProps = dispatch => ({
-    r_handleLogout: () => dispatch(Login_Action.logoutUser())
+    r_handleLogout: () => dispatch(Auth_Action.logoutUser())
 });
 
 //export default ButtonAppBar;

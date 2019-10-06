@@ -15,7 +15,7 @@ const useStyles = makeStyles(theme => ({
     },
 }));
 
-//Functional component to display this area
+//Functional component that displays a material UI div
 export default function Copyright() {
 
     const classes = useStyles();
