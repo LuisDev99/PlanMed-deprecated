@@ -1,13 +1,11 @@
 import React, { Component } from "react";
 import "./App.css";
-import Login from "./Components/Login"
-import HospitalView from "./Components/HospitalView"
-import DoctorView from "./Components/DoctorView"
+import Login from "./Components/Login/Login"
+import HospitalView from "./Components/HospitalView/HospitalView"
+import DoctorView from "./Components/DoctorView/DoctorView"
 import { Provider as ReduxProvider } from "react-redux";
 import { Route, BrowserRouter as Router, Switch } from "react-router-dom";
 import configureStore from "./store";
-
-//DONE ? Yes
 
 // Creates the Redux store using our reducers and the logger and thunk middlewares
 const reduxStore = configureStore(window.REDUX_INITIAL_DATA);

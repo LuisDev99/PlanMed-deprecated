@@ -18,7 +18,7 @@ function loginUser(userAuthentications) {
         dispatch(onLoggingIn());
 
         //TODO: let backendURL = 'http://nuestroBackend.com/Usuarios/{userAuthentications}'; -> This will be the real connection endpoint url once we implement the backend to a server
-        let backendURL = 'https://jsonplaceholder.typicode.com/users/1';
+        let backendURL = 'https://jsonplaceholder.typicode.com/users/2';
 
         //Fetch the API the user's information that got passed in using axios' get method
         axios.get(backendURL)
@@ -38,8 +38,14 @@ function loginUser(userAuthentications) {
 
 }
 
+/**
+ * Function gets call whenever the user wants to log out (Its the only way to close session)
+ * It will dispacth the logOut function
+ */
 function logoutUser() {
-    logOut();
+    return dispatch => {
+        dispatch(logOut());
+    }
 }
 
 /**
@@ -67,6 +73,10 @@ const onLoginFailed = error => ({
     payload: error
 });
 
+/**
+ * Notifies the reducer that the user wants to logout, 
+ * therefore, the reducer will delete the user's token
+ */
 const logOut = () => ({
     type: Types.LOGOUT
 });

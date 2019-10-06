@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import Login_Action from '../Actions/login_actions';
+import Login_Action from '../../Actions/login_actions';
 import { connect } from "react-redux";
 import { withRouter } from 'react-router-dom';
 import { withStyles } from '@material-ui/core/styles';
@@ -15,6 +15,8 @@ import LockOutlinedIcon from '@material-ui/icons/LockOutlined';
 import Typography from '@material-ui/core/Typography';
 import Container from '@material-ui/core/Container';
 import { Redirect } from 'react-router-dom';
+import Copyright from './Copyright';
+import LoadingBar from '../Utilities/LoadingBar'
 
 
 class Login extends Component {
@@ -42,47 +44,44 @@ class Login extends Component {
         });
     }
 
+    /*
+        When the user clicks the login button, this function gets call.
+        It will call the reducer to handle the credentials
+    */
     handleLogin = () => {
         console.log(this.state);
         let userAuthentication = {
-            username: this.state.username, //TODO: grab the username textfield and set it to this variable
-            password: this.state.password  //TODO: grab the password textfield and set it to this variable
+            username: this.state.username,
+            password: this.state.password
         };
 
         this.props.r_handleLogin(userAuthentication);
     }
 
-    Copyright = () => {
-        return (
-            <Typography variant="body2" color="textSecondary" align="center">
-                {'Copyright © '}
-                <Link color="inherit" href="https://planmed.hn">
-                    PlanMed HN
-            </Link>{' '}
-                {new Date().getFullYear()}
-                {'.'}
-            </Typography>
-        );
-    }
-
+    //Checks to see if the current user has a open session by reading the local storage token
     loadLocalUserData() {
-        //check to see if the current user has a open session by reading local storage token
+
         const token = localStorage.getItem("token");
 
         if (token != null) {
             let serializedUserInformation = JSON.parse(token);
+
             this.setState({
                 isLoggedIn: serializedUserInformation.isLoggedIn,
                 userInformation: serializedUserInformation.userInformation
-            })
+            });
         }
     }
 
-    componentDidMount() {
-        this.loadLocalUserData(); //New react code
+    //Before the component renders, load the user's local data (if he has one)
+    componentWillMount() {
+        this.loadLocalUserData();
     }
 
-    //React is going to deprecate this lifecycle method
+    /*
+        Everytime the component re-renders, load the user's local data (if he has one)
+        to redirect automatically to the user's corresponding role screen
+    */
     componentDidUpdate() {
         this.loadLocalUserData();
     }
@@ -90,6 +89,7 @@ class Login extends Component {
     render() {
 
         /** TODO: Implement this, by uncommenting this and using the role of the user whenever the API is ready
+         * // If the user has a valid session active, redirect automatically to the corresponding screen 
         if (this.state.isLoggedIn) {
             if (this.state.userInformation.role == "Doctor") {
                 return <Redirect to="/DoctorView"></Redirect>
@@ -98,7 +98,6 @@ class Login extends Component {
             }
         } 
         */
-
 
         //TODO: delete this when API is ready
         if (this.state.isLoggedIn) {
@@ -110,14 +109,11 @@ class Login extends Component {
         }
 
         const { classes } = this.props;
-        const linearProgress = <div className={classes.root}> <LinearProgress /> </div>;
-
-        //If the api is loading, show a loading bar on top of the screen
-        let loadingBar = this.props.loading ? linearProgress : <div></div>;
 
         return (
             <div>
-                {loadingBar}
+                <LoadingBar isLoading={this.props.loading} />
+
                 <Container component="main" maxWidth="xs">
                     <CssBaseline />
                     <div className={classes.paper}>
@@ -168,13 +164,13 @@ class Login extends Component {
                             <br />
                             <Grid container>
                                 <Grid item xs>
-                                    Si olvidaste tu contaseña, contacta a PlanMed para recuperar tu contraseña
+                                    Si olvidaste tu usuario o contaseña, contacta a PlanMed para recuperar tu cuenta
                                 </Grid>
                             </Grid>
                         </form>
                     </div>
                     <Box mt={8}>
-                        {this.Copyright}
+                        <Copyright />
                     </Box>
                 </Container>
             </div>
@@ -226,7 +222,7 @@ const mapStateToProps = (state) => {
 
 //Redux configuration stuff
 const mapDispatchToProps = dispatch => ({
-    r_handleLogin: userAuthentication => dispatch(Login_Action.loginUser(userAuthentication))
+    r_handleLogin: userAuthentication => dispatch(Login_Action.loginUser(userAuthentication)) //The r_ stands for reducer
 });
 
 

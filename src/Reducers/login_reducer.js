@@ -73,7 +73,7 @@ const loginReducer = (state = defaultState, action) => {
             return newState;
         }
 
-        case Login_Action.LOGOUT: {
+        case Login_Action.Types.LOGOUT: {
 
             let newState = {
                 userInformation: null,
