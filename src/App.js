@@ -9,8 +9,10 @@ import configureStore from "./store";
 
 //DONE ? Yes
 
+// Creates the Redux store using our reducers and the logger and thunk middlewares
 const reduxStore = configureStore(window.REDUX_INITIAL_DATA);
 
+//Add here all the components with its corresponding route
 const routing = (
 
   <Router>
@@ -25,6 +27,8 @@ const routing = (
 
 );
 
+// Mostly boilerplate, except for the routing. These are the pages you can go to,
+// which are all wrapped in the App component, which contains the navigation(routes) etc
 class App extends Component {
   render() {
     return (
