@@ -34,8 +34,8 @@ class LoginPage extends Component {
     }
 
     handleInputChange = (event) => {
-        const { name, txtValue } = event.target;
-        this.setState({ [name]: txtValue });
+        const { name, value } = event.target;
+        this.setState({ [name]: value });
     }
 
     /*
@@ -161,9 +161,9 @@ const useStyles = theme => ({
 const mapStateToProps = (state) => {
 
     return {
-        userInformation: state.loginReducer.userInformation,
-        loading: state.loginReducer.loading,
-        error: state.loginReducer.error
+        userInformation: state.authenticationReducer.userInformation,
+        loading: state.authenticationReducer.loading,
+        error: state.authenticationReducer.error
     };
 }
 
