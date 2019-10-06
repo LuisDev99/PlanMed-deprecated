@@ -19,7 +19,7 @@ class ButtonAppBar extends Component {
         and then redirect the user to the login page
      */
     handleLogout = () => {
-        this.props.r_handleLogout();
+        this.props.r_handleLogout(); //Redundant, login page already calls logout whenever it loads
         window.location = '/'; //Redirect to the login page
     }
 

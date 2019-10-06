@@ -3,8 +3,9 @@ import "./App.css";
 import LoginPage from "./Components/LoginPage/LoginPage"
 import HospitalPage from "./Components/HospitalPage/HospitalPage"
 import DoctorPage from "./Components/DoctorPage/DoctorPage"
+import PageNotFound from "./Components/PageNotFound"
 import { Provider as ReduxProvider } from "react-redux";
-import { Route, BrowserRouter as Router, Switch } from "react-router-dom";
+import { Route, BrowserRouter as Router, Switch, Redirect } from "react-router-dom";
 import { PrivateRouter as PrivateRoute } from './Utilities/PrivateRouter';
 import configureStore from "./store";
 
@@ -20,9 +21,10 @@ const routing = (
     <div>
       <Switch>
         <Route path="/" exact component={LoginPage}></Route>
+        <Route path="/PageNotFound" component={PageNotFound}></Route>
         <PrivateRoute path="/HospitalPage" component={HospitalPage}></PrivateRoute>
         <PrivateRoute path="/DoctorPage" component={DoctorPage}></PrivateRoute>
-        <Route from="*" to="/" />
+        <Redirect from="*" to="/PageNotFound" />
       </Switch>
     </div>
   </Router>

@@ -4,12 +4,22 @@
 
 import Auth_Action from "../Actions/authentication_actions";
 
-const defaultState = {
+let user = JSON.parse(localStorage.getItem('token'));
+const initialState = {
     userInformation: null,
     isLoggedIn: false,
     loading: false,
     error: null
 };
+
+const defaultState = user ? user : initialState;
+
+// const defaultState = {
+//     userInformation: null,
+//     isLoggedIn: false,
+//     loading: false,
+//     error: null
+// };
 
 // Takes care of changing the application login state
 const authenticationReducer = (state = defaultState, action) => {
